@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.demo.geolocation.ui.GetDistanceScreen
 import com.example.demo.geolocation.ui.GetLocationScreen
 import com.example.demo.geolocation.ui.PrincipalMenu
 
@@ -20,6 +21,8 @@ fun AppNavigation() {
         composable(route = AppScreens.GetLocationScreen.route){
             GetLocationScreen(navController = navController)
         }
-
+        composable(route = AppScreens.GetDistanceScreen.route){
+            GetDistanceScreen(navController = navController)
+        }
     }
 }

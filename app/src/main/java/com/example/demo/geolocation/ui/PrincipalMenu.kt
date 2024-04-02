@@ -27,6 +27,7 @@ fun PrincipalMenu(navController: NavHostController) {
             Text(text = "Menu Principal", modifier = Modifier.padding(bottom = 16.dp))
 
             MenuButton(label = "Obtener GeoLocalizacion") { navController.navigate(AppScreens.GetLocationScreen.route) }
+            MenuButton(label = "Evaluar Rango de distancia") { navController.navigate(AppScreens.GetDistanceScreen.route) }
         }
     }
 }
