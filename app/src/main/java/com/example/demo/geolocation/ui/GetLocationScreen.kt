@@ -6,16 +6,12 @@ import android.content.pm.PackageManager
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -23,48 +19,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavHostController
 import com.example.demo.MainActivity
 import com.google.android.gms.location.LocationServices
 
-@Composable
-fun LocationScreen2() {
-    Scaffold {
-        val paddingValues = it
-        var location by remember { mutableStateOf("Location not available") }
-        val context = LocalContext.current
-        val fusedLocationClient = remember { LocationServices.getFusedLocationProviderClient(context) }
-
-
-
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(text = location, modifier = Modifier.padding(bottom = 16.dp))
-
-            Button(modifier = Modifier.padding(22.dp), onClick = { /*TODO*/ }) {
-                Text(
-                    text = "Obtener GeoLocalizacion",
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
-                )
-            }
-        }
-    }
-}
-
 @SuppressLint("MissingPermission")
 @Composable
-fun LocationScreenX() {
+fun GetLocationScreen(navController: NavHostController) {
     var geoLocation = remember { mutableStateOf("Location not available") }
     val context = LocalContext.current
     val fusedLocationClient = remember { LocationServices.getFusedLocationProviderClient(context) }
 
     Column(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp).fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = geoLocation.value, modifier = Modifier.padding(bottom = 16.dp))
+        Text(text = geoLocation.value, modifier = Modifier.padding(bottom = 16.dp), textAlign = TextAlign.Center)
 
         Button(onClick = {
             if (ContextCompat.checkSelfPermission(
@@ -94,7 +65,7 @@ fun LocationScreenX() {
                         val longitude = location.longitude
                         // Do something with latitude and longitude, like display them
                         // For now, we just display it in a Text composable
-                        geoLocation.value = "Latitude: $latitude, Longitude: $longitude"
+                        geoLocation.value = "Latitude: $latitude, \n Longitude: $longitude"
                     } else {
                         geoLocation.value = "Location not available"
                     }

@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun MenuButton(label: String, onClick: ()-> Unit = {}){
-    Button(modifier = Modifier.padding(22.dp), onClick = { /*TODO*/ }) {
+    Button(modifier = Modifier.padding(22.dp), onClick = { onClick.invoke() }) {
         Text(
             text = label,
             modifier = Modifier
