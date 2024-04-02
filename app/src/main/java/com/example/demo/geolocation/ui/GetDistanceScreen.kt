@@ -3,6 +3,7 @@ package com.example.demo.geolocation.ui
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -48,11 +49,17 @@ fun GetDistanceScreen(navController: NavHostController) {
             textAlign = TextAlign.Center
         )
 
-        if(actualLatitude.value != 0.0 || actualLongitude.value!= 0.0) {
-            ObtenerDireccion(latitud = actualLatitude.value, longitud = actualLongitude.value, direccion = actualAddress)
-            Text(text = actualAddress.value,
+        if (actualLatitude.value != 0.0 || actualLongitude.value != 0.0) {
+            ObtenerDireccion(
+                latitud = actualLatitude.value,
+                longitud = actualLongitude.value,
+                direccion = actualAddress
+            )
+            Text(
+                text = actualAddress.value,
                 modifier = Modifier.padding(vertical = 16.dp),
-                textAlign = TextAlign.Center)
+                textAlign = TextAlign.Center
+            )
         }
 
 
@@ -105,10 +112,22 @@ fun GetDistanceScreen(navController: NavHostController) {
                     actualLongitude.value,
                     100
                 )
+                Toast.makeText(
+                    context,
+                    if (isInRange.value) {
+                        "Dentro del rango"
+                    } else {
+                        "Fuera del rango"
+                    }, Toast.LENGTH_SHORT
+                ).show()
             }
         )
 
-        rangeDescription.value = if (isInRange.value){"Dentro del rango"} else{"Fuera del rango"}
+        rangeDescription.value = if (isInRange.value) {
+            "Dentro del rango"
+        } else {
+            "Fuera del rango"
+        }
         Text(
             text = "Direccion Establecida",
             modifier = Modifier.padding(bottom = 10.dp),
@@ -121,16 +140,21 @@ fun GetDistanceScreen(navController: NavHostController) {
         )
         var address = remember { mutableStateOf("") }
         ObtenerDireccion(SET_LATITUDE, SET_LONGITUDE, address)
-        if (address.value != ""){
-            Text(text = address.value,
+        if (address.value != "") {
+            Text(
+                text = address.value,
                 modifier = Modifier.padding(top = 16.dp),
-                textAlign = TextAlign.Center)
+                textAlign = TextAlign.Center
+            )
         }
+        /*
         Text(
             text = rangeDescription.value,
             modifier = Modifier.padding(bottom = 16.dp),
             textAlign = TextAlign.Center
         )
+
+         */
     }
 }
 
